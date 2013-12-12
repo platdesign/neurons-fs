@@ -17,8 +17,14 @@ Sets the rootpath of `$fs-service`.
 ##Services##
 
 ###$fs###
-**->find($path)**	
+- **find($path)**	
 Returns the a `fsFile` or `fsDir` of the path.
+
+- **__get($key)**	
+Equivalent of `find($key)`.
+
+		$fs->vendor === $fs->find('vendor');
+
 
 
 
@@ -51,3 +57,22 @@ Creates a new file with `$content` as content and returns a `fsFile`-instance of
 
 - **getIterator()** 	
 Returns an instance of `DirectoryIterator` of this directory.
+
+
+
+##fsFile##
+
+- **parseAs($type)**	
+Returns the content of this file, parsed by a file-parser.	
+	**File-Parser:** `plain`, `html`, `json`, `md` (Markdown)
+
+- **getMime()**	
+Returns the Mime-Type of this file.
+
+- **getContents()**
+Equivalent of `file_get_contents()` of this file.
+
+- **import()**
+Equivalent of `require` of this file.
+
+
