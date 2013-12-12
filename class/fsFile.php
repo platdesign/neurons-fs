@@ -66,7 +66,7 @@ class fsFile extends \splFileInfo {
 	}
 	
 	public function import() {
-		require $this;
+		return require $this;
 	}
 	
 	
