@@ -9,7 +9,7 @@ A filesystem-module for [Neurons](https://github.com/platdesign/Neurons).
 
 ###$fsProvider###
 
-**->setRootPath($path)**	
+- **setRootPath($path)**	
 Sets the rootpath of `$fs-service`.
 
 
