@@ -9,8 +9,7 @@ class fsProvider extends nrns\Provider {
 	private $rootDir;
 	
 	function __construct($nrns){
-	//	$this->setRootPath(__SCRIPT__);
-		$this->setRootPath(dirname($_SERVER['SCRIPT_FILENAME']));
+		$this->setRootPath(__SCRIPT__);
 	}
 	
 	public function setRootPath($path) {
