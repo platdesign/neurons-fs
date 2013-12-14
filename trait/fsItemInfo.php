@@ -33,7 +33,7 @@ trait fsItemInfo {
 		if( isset($info->title) ) {
 			return $info->title;
 		} else {
-			return $this->getName();
+			return $this->getName(true);
 		}
 	}
 
