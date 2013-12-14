@@ -12,7 +12,7 @@ trait fsItemInfo {
 	 * @author Christian Blaschke
 	 */
 	public function cached_info() {
-		if( $infoFile = $this->sibling((string)$this->getFilename().".json") ) {
+		if( $infoFile = $this->sibling($this->getFilename().".json") OR $infoFile = $this->sibling($this->getFilename().".info") ) {
 			return $infoFile->parseAs("json");
 		} else {
 			return new \stdClass;
