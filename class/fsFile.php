@@ -68,7 +68,9 @@ class fsFile extends \splFileInfo {
 	}
 	
 	
-	
+	public function getName() {
+		return str_replace('.'.$this->getExtension(), '', $this->getFilename());
+	}
 	
 }
 

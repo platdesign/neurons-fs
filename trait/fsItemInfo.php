@@ -27,13 +27,13 @@ trait fsItemInfo {
 	 * @return string
 	 * @author Christian Blaschke
 	 */
-	public function cached_getName() {
+	public function cached_getTitle() {
 		$info = $this->info();
 		
-		if( isset($info->name) ) {
-			return $info->name;
+		if( isset($info->title) ) {
+			return $info->title;
 		} else {
-			return str_replace('.'.$this->getExtension(), '', $this->getFilename());
+			return $this->getName();
 		}
 	}
 
