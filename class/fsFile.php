@@ -52,10 +52,8 @@ class fsFile extends \splFileInfo {
 			break;
 			
 			case "md":
-				require_once "libs/markdown.php";
 				return Markdown(file_get_contents($this));
 			break;
-			
 			
 		}
 	}
