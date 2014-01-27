@@ -202,10 +202,11 @@
 		 */
 		public function cached_find($name) {
 
-			$name = ltrim(rtrim($name, DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
+			$name = ltrim($name, DIRECTORY_SEPARATOR);
 
 			if( strpos($name, DIRECTORY_SEPARATOR) === false ) {
 				$path = $this.DIRECTORY_SEPARATOR.$name;
+			
 				if( is_dir($path) ) {
 					$item = new fsDir($path);
 
@@ -221,10 +222,10 @@
 
 			} else {
 
-				$firstPart = substr($name, 0, stripos($name, DIRECTORY_SEPARATOR));
+				echo $firstPart = substr($name, 0, stripos($name, DIRECTORY_SEPARATOR));
 
 				$next = $this->find($firstPart);
-				return $next->find( str_replace($firstPart, '', $name) );
+				return $next->find( substr($name, strlen($firstPart)) );
 			}
 			
 		
