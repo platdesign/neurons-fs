@@ -145,17 +145,25 @@
 		 * @return void
 		 * @author Christian Blaschke
 		 */
-		public function cached_dirs() {
+		public function cached_dirs($recursive=false) {
+			if(!$recursive) {
+				return $this->_itemsFilterSort(function($item){
+					
+					if( $item->isDir() ) {
+						return true;
+					}
+					
+				}, function($a, $b){
+					return strnatcmp($a, $b);
+				});
+			} else {
+
+				$Directory = new \RecursiveDirectoryIterator($this, \FilesystemIterator::SKIP_DOTS);
+				return $Iterator = new \RecursiveIteratorIterator($Directory, \RecursiveIteratorIterator::SELF_FIRST);
+
+
+			}
 			
-			return $this->_itemsFilterSort(function($item){
-				
-				if( $item->isDir() ) {
-					return true;
-				}
-				
-			}, function($a, $b){
-				return strnatcmp($a, $b);
-			});
 			
 			/* OLD GENERATOR
 			foreach($this->getIterator() as $item) {
@@ -193,23 +201,32 @@
 		 * @author Christian Blaschke
 		 */
 		public function cached_find($name) {
-			$path = (string) $this.DIRECTORY_SEPARATOR.$name;
-		
-			if(isset($this->{$name})) {
-				return $this->{$name};
-			} else {
+
+			$name = ltrim(rtrim($name, DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
+
+			if( strpos($name, DIRECTORY_SEPARATOR) === false ) {
+				$path = $this.DIRECTORY_SEPARATOR.$name;
 				if( is_dir($path) ) {
-					$this->{$name} = new fsDir($path);
-					$this->{$name}->setParent($this);
-					return $this->{$name};
+					$item = new fsDir($path);
+
+					$item->setParent($this);
+					return $item;
 				} else if( file_exists($path) ){
-					$this->{$name} = new fsFile($path);
-					$this->{$name}->setParent($this);
-					return $this->{$name};
+					$item = new fsFile($path);
+					$item->setParent($this);
+					return $item;
 				} else {
 					return null;
 				}
+
+			} else {
+
+				$firstPart = substr($name, 0, stripos($name, DIRECTORY_SEPARATOR));
+
+				$next = $this->find($firstPart);
+				return $next->find( str_replace($firstPart, '', $name) );
 			}
+			
 		
 		}
 	
@@ -255,11 +272,19 @@
 		public function createDir($filename) {
 			$dirpath = $this->getPathname().DIRECTORY_SEPARATOR.$filename;
 			
-			mkdir($dirpath, 0777, true);
+
+			if( !is_dir($dirpath) ) {
+				mkdir($dirpath, 0775, true);
+			}
+			
 			return $this->find($filename);
 		}
 		
-		
+		public function scanRecursive() {
+
+
+
+		}
 		
 		
 	}
