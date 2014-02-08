@@ -222,7 +222,7 @@
 
 			} else {
 
-				echo $firstPart = substr($name, 0, stripos($name, DIRECTORY_SEPARATOR));
+				$firstPart = substr($name, 0, stripos($name, DIRECTORY_SEPARATOR));
 
 				$next = $this->find($firstPart);
 				return $next->find( substr($name, strlen($firstPart)) );
