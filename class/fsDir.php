@@ -272,10 +272,11 @@
 		 */
 		public function createDir($filename) {
 			$dirpath = $this->getPathname().DIRECTORY_SEPARATOR.$filename;
-			
 
 			if( !is_dir($dirpath) ) {
-				mkdir($dirpath, 0775, true);
+				if( !mkdir($dirpath, null, true) ) {
+					throw nrns::Exception('Cannot create dir: '.$dirpath);
+				}
 			}
 			
 			return $this->find($filename);
