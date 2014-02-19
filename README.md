@@ -75,5 +75,3 @@ Equivalent of `file_get_contents()` of this file.
 - **import()**
 Equivalent of `require` of this file.
 
-##Contact
-![](http://vizcard.bedit.de/example/svg?shadow&round)
